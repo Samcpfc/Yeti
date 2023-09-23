@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2two6kmwfoe1"]
+
+[ext_resource type="Texture2D" uid="uid://ctbaqxsdsmrdq" path="res://Assets/kenney_platformer-art-winter/tilemap.png" id="1_bddeq"]
+[ext_resource type="Script" path="res://Player.gd" id="1_wndq3"]
+[ext_resource type="Texture2D" uid="uid://c7u71wl310grx" path="res://Assets/kenney_platformer-art-winter/Tiles/tundraCenter.png" id="2_mb8df"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6h5mq"]
+radius = 7.0
+height = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5vwl"]
+size = Vector2(70, 70)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(449, 281)
+script = ExtResource("1_wndq3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_6h5mq")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("1_bddeq")
+region_enabled = true
+region_rect = Rect2(85, 69, 16, 16)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(476, 329)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_k5vwl")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture_filter = 1
+texture = ExtResource("2_mb8df")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(546, 329)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_k5vwl")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+texture = ExtResource("2_mb8df")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 356.0
+offset_bottom = 26.0
+text = "Sorry, you can't do that while holding the Yeti!"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
