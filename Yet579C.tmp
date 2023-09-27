@@ -13,27 +13,27 @@ size = Vector2(70, 70)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(147, 235)
 script = ExtResource("1_wndq3")
 holdingYeti = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CapsuleShape2D_6h5mq")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 texture_filter = 1
 texture_repeat = 1
 texture = ExtResource("1_bddeq")
 region_enabled = true
 region_rect = Rect2(85, 69, 16, 16)
 
-[node name="warningTimer" type="Timer" parent="Player"]
+[node name="warningTimer" type="Timer" parent="CharacterBody2D"]
 wait_time = 5.0
 
-[node name="playerCam" type="Camera2D" parent="Player"]
+[node name="playerCam" type="Camera2D" parent="CharacterBody2D"]
 
-[node name="warningText" type="Label" parent="Player/playerCam"]
+[node name="warningText" type="Label" parent="CharacterBody2D/playerCam"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

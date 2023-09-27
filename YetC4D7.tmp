@@ -13,40 +13,35 @@ size = Vector2(70, 70)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(147, 235)
 script = ExtResource("1_wndq3")
 holdingYeti = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CapsuleShape2D_6h5mq")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 texture_filter = 1
 texture_repeat = 1
 texture = ExtResource("1_bddeq")
 region_enabled = true
 region_rect = Rect2(85, 69, 16, 16)
 
-[node name="warningTimer" type="Timer" parent="Player"]
+[node name="warningTimer" type="Timer" parent="CharacterBody2D"]
 wait_time = 5.0
 
-[node name="playerCam" type="Camera2D" parent="Player"]
+[node name="playerCam" type="Camera2D" parent="CharacterBody2D"]
 
-[node name="warningText" type="Label" parent="Player/playerCam"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -35.0
-offset_top = -232.0
-offset_right = 35.0
-offset_bottom = -206.0
+[node name="warningText" type="Label" parent="CharacterBody2D/playerCam"]
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
 grow_horizontal = 2
-size_flags_vertical = 0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 26
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

@@ -14,32 +14,51 @@ var isSprinting = false
 var warningText : Label
 var warningTimer : Timer
 
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-func _show_warning(message: String):
-	warningText.text = message
-	warningText.visible = true
-	warningTimer.start(5)  # Display the warning for 5 seconds.
-
-func _hide_warning():
-	warningText.visible = false
-	warningTimer.stop()
+var camera
+var playerPos = get_position()
+var player
 
 func _ready():
 	# Reference the Label and Timer nodes.
-	warningText = get_node("warningText")
-	warningTimer = get_node("warningTimer") 
+	#warningText = get_node("playerCam.warningText")
+	warningText = $playerCam/warningText
+	warningTimer = get_node("warningTimer")
+	player = get_node("Player")
+	camera = get_node("playerCam")
+
 
 	# Connect the Timer's "timeout" signal (integer constant 14) to hide the warning.
-	#warningTimer.connect("timeout", self, "hide_warning")
-	warningTimer.connect("timeout", self, "_hide_warning")
+	warningTimer.timeout.connect(_hide_warning)
 
 
 
 
 
 func _physics_process(delta):
+	# Calculate the player facing direction.
+	var camPos = camera.get_position()
+	
+	var playerFacingDirection = camPos - playerPos
+	playerFacingDirection.normalize()
+
+	# Calculate the camera velocity.
+	var cameraVelocity = playerFacingDirection * player.velocity.x * delta
+
+	# Move the camera.
+	camera.global_position += cameraVelocity
+
+	# Check if the player is moving forward or backwards.
+	if playerFacingDirection.x > 0.0:
+		# Player is moving forward.
+		camera.global_position.y += 100.0 * delta
+	elif playerFacingDirection.x < 0.0:
+		# Player is moving backwards.
+		camera.global_position.y -= 100.0 * delta
+	
 	movement()
 	# Add the gravity.
 	if not is_on_floor():
@@ -70,7 +89,7 @@ func movement():
 			doubleJump = false
 			velocity.y = JUMP_VELOCITY
 		elif jumpAmount == 2 and holdingYeti:
-			_show_warning("You can't do that while holding the Something!")
+			_show_warning("You can't do that while holding the Yeti!")
 	
 	#Walking
 	
@@ -92,4 +111,12 @@ func movement():
 		stamina += 0.5
 	move_and_slide()
 
+func _show_warning(message: String):
+	warningText.text = message
+	warningText.visible = true
+	warningTimer.start(2)  # Display the warning for 5 seconds.
 
+func _hide_warning():
+	warningText.visible = false
+	warningTimer.stop()
+	
